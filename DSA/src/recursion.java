@@ -66,23 +66,85 @@
 
 
 // example : 4  (fibonacci sequence)
-class recursion {
-    public static void printFibonacci(int a, int b, int n){
-        // a - second last term
-        // b - last term
+//class recursion {
+//    public static void printFibonacci(int a, int b, int n){
+//        // a - second last term
+//        // b - last term
+//        if(n == 0){
+//            return;
+//        }
+//        int c = a + b;
+//        System.out.println(c);
+//        printFibonacci(b, c, n-1);
+//    }
+//
+//    public static void main(String[] args){
+//        int a = 0, b = 1;
+//        System.out.println(a);
+//        System.out.println(b);
+//        int n = 7;
+//        printFibonacci(a, b, n-2);
+//    }
+//}
+
+
+
+
+
+
+
+
+// example : 5
+//class recursion{
+//    public static int calcPower(int x, int n){
+//        if(n == 0){
+//            return 1;
+//        }
+//        if(x == 0){
+//            return 0;
+//        }
+//        int xPOWnm1 = calcPower(x, n - 1 );
+//        int xPOWn = x * xPOWnm1;
+//        return xPOWn;
+//    }
+//
+//    public static void main(String[] args){
+//        int x=2, n=5;
+//        int ans = calcPower(x, n);
+//        System.out.println(ans);
+//    }
+//}
+
+
+
+
+
+
+
+
+// example : 6
+class recursion{
+    public static int calcPower(int x, int n){
         if(n == 0){
-            return;
+            return 1;
         }
-        int c = a + b;
-        System.out.println(c);
-        printFibonacci(b, c, n-1);
+        if(x == 0){
+            return 0;
+        }
+
+        // if n is even
+        if(n%2 == 0){
+            return calcPower(x, n/2) * calcPower(x, n/2);
+        }
+        // if n is odd
+        else{
+            return calcPower(x, n/2) + calcPower(x, n/2) * x;
+        }
     }
 
     public static void main(String[] args){
-        int a = 0, b = 1;
-        System.out.println(a);
-        System.out.println(b);
-        int n = 7;
-        printFibonacci(a, b, n-2);
+        int x = 2, n = 5;
+        int ans = calcPower(x, n);
+        System.out.println(ans);
     }
 }
