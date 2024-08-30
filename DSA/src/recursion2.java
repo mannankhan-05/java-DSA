@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 // example 1 : (Tower of Hanoi)
 //class recursion2{
 //    public static void hanoi(int n, String src, String helper, String dest){
@@ -107,22 +109,154 @@
 
 
 // example : 5 (check if an array is sorted (strictly increasing))
-class recursion2{
-    public static boolean checkArray(int arr[], int index){
+//class recursion2{
+//    public static boolean checkArray(int arr[], int index){
+//        if(index == arr.length - 1){
+//            return true;     // base case
+//        }
+//
+//        if(arr[index] < arr[index + 1]){
+//            return checkArray(arr, index + 1);
+//        }
+//        else{
+//            return false;
+//        }
+//    }
+//
+//    public static void main(String[] args){
+//        int arr[] = {1, 2, 3, 3, 5};
+//        System.out.println(checkArray(arr, 0));
+//    }
+//}
 
-        if(arr[index] < arr[index + 1]){
-            while(index != arr.length) {
-                checkArray(arr, index + 1);
+
+
+
+
+
+
+
+
+// example : 6 (move all 'x' to the end of the string)
+//class recursion2{
+//    public static void moveX(String str, int index, int count, String newString){
+//        if(index == str.length()){
+//            for(int i = 0; i < count; i++){
+//                newString += 'x';
+//            }
+//            System.out.println(newString);
+//            return;
+//        }
+//
+//        char currChar = str.charAt(index);
+//        if(currChar == 'x'){
+//            count++;
+//            moveX(str, index+1, count, newString);
+//        }
+//        else{
+//            newString += currChar;
+//            moveX(str, index+1, count, newString);
+//        }
+//    }
+//
+//    public static void main(String[] args){
+//        String str = "axbcxxd";
+//        moveX(str, 0, 0, "");
+//    }
+//}
+
+
+
+
+
+
+
+
+// example 7 : (remove duplicates in a string)
+//class recursion2{
+//    public static boolean[] map = new boolean[26];
+//
+//    public static void removeDuplicates(String str, int index, String newStr){
+//        if(index == str.length()){
+//            System.out.println(newStr);
+//            return;
+//        }
+//
+//        char currChar = str.charAt(index);
+//        if(map[currChar - 'a'] == true){
+//            removeDuplicates(str, index+1, newStr);
+//        }
+//        else{
+//            newStr += currChar;
+//            map[currChar - 'a'] = true;
+//            removeDuplicates(str, index+1, newStr);
+//        }
+//    }
+//
+//    public static void main(String[] args){
+//        String str = "abbccda";
+//        removeDuplicates(str, 0, "");
+//    }
+//}
+
+
+
+
+
+
+
+
+// important question for interviews
+// example : 8 (print all the subsequences of a string)
+//class recursion2{
+//    public static void subsequences(String str, int index, String newString){
+//        if(index == str.length()){
+//            System.out.println(newString);
+//            return;
+//        }
+//
+//        char currChar = str.charAt(index);
+//
+//        // to be
+//        subsequences(str, index+1, newString + currChar);
+//        // or not to be
+//        subsequences(str, index+1, newString);
+//    }
+//
+//    public static void main(String[] args){
+//        String str = "abc";
+//        subsequences(str, 0, "");
+//    }
+//}
+
+
+import java.util.HashSet;
+
+// example : 9 (print all the unique subsequences of a string)
+class recursion2{
+    public static void subsequences(String str, int index, String newString, HashSet<String> set){
+        if(index == str.length()){
+            if(set.contains(newString)){
+                return;
             }
-            return true;
+            else{
+                System.out.println(newString);
+                set.add(newString);
+                return;
+            }
         }
-        else{
-            return false;
-        }
+
+        char currChar = str.charAt(index);
+
+        // to be
+        subsequences(str, index+1, newString + currChar, set);
+        // or not to be
+        subsequences(str, index+1, newString, set);
     }
 
     public static void main(String[] args){
-        int arr[] = {1, 2, 3, 4, 5};
-        System.out.println(checkArray(arr, 0));
+        String str = "aaa";
+        HashSet<String> set = new HashSet<>();
+        subsequences(str, 0, "", set);
     }
 }
