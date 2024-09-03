@@ -86,24 +86,24 @@
 
 
 // example : 4 (Find the number of ways in which you can invite n people to your party, single or in pairs)
-//class recursion3{
-//    public static int invitePeople(int n){
-//        if(n <= 1){
-//            return 1;
-//        }
-//
-//        // single invite
-//        int single = invitePeople(n-1);
-//
-//        // pair invite
-//        int pair = invitePeople(n-2);
-//
-//        return single + pair;
-//    }
-//
-//    public static void main(String[] args){
-//        int n = 4;
-//        System.out.println(invitePeople(n));
-//
-//    }
-//}
+class recursion3{
+    public static int invitePeople(int n){
+        if(n <= 1){
+            return 1;
+        }
+
+        // single invite
+        int single = invitePeople(n-1);
+
+        // pair invite
+        int pair = invitePeople(n-2);
+
+        return single + pair;
+    }
+
+    public static void main(String[] args){
+        int n = 4;
+        System.out.println(invitePeople(n));
+
+    }
+}
