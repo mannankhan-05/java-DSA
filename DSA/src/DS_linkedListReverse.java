@@ -39,7 +39,7 @@ public class DS_linkedListReverse {
         currNode.next = newNode;
     }
 
-     public void deleteFirst(){
+    public void deleteFirst(){
         if(head == null){
             System.out.println("LinkedList is empty.");
             return;
@@ -47,6 +47,26 @@ public class DS_linkedListReverse {
 
         head = head.next;
      }
+
+    public void deleteLast(){
+        if(head == null){
+            System.out.println("LinkedList is empty.");
+            return;
+        }
+        if(head.next  == null){
+            head = null;
+            return;
+        }
+
+       Node secondLastNode = head;
+       Node lastNode = head.next;
+
+       while(lastNode.next != null){
+           secondLastNode = secondLastNode.next;
+           lastNode = lastNode.next;
+       }
+       secondLastNode.next = null;
+    }
 
     public void printList(){
         if(head == null){
@@ -62,6 +82,40 @@ public class DS_linkedListReverse {
         System.out.println("null");
     }
 
+    // iterative way of reversing a LinkedList
+    public void reverseIterate(){
+        if(head == null || head.next == null){
+            return;
+        }
+
+        Node prevNode = head;
+        Node currNode = head.next;
+
+        while(currNode != null){
+            Node nextNode = currNode.next;
+            currNode.next = prevNode;
+
+            // update
+            prevNode = currNode;
+            currNode = nextNode;
+        }
+
+        head.next = null;
+        head = prevNode;
+    }
+
+    public Node reverseRecursive(Node head){
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        Node newHead = reverseRecursive(head.next);
+        head.next.next = head;
+        head.next = null;
+
+        return newHead;
+    }
+
     public static void main(String[] args) {
         DS_linkedListReverse list = new DS_linkedListReverse();
 
@@ -69,7 +123,11 @@ public class DS_linkedListReverse {
         list.addFirst(0);
         list.addLast(2);
 
-        list.deleteFirst();
+//        list.deleteFirst();
+//        list.deleteLast();
+        list.printList();
+
+        list.head = list.reverseRecursive(list.head);
         list.printList();
     }
 }
