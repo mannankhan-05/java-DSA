@@ -88,11 +88,11 @@ public class DS_linkedListReverse {
             return;
         }
 
-        Node prevNode = head;
-        Node currNode = head.next;
+        Node prevNode = head;         // points to the 1st node.
+        Node currNode = head.next;    // points to the 2nd node
 
         while(currNode != null){
-            Node nextNode = currNode.next;
+            Node nextNode = currNode.next;      // saves the 3rd node.
             currNode.next = prevNode;
 
             // update
@@ -123,8 +123,9 @@ public class DS_linkedListReverse {
         list.addFirst(0);
         list.addLast(2);
 
-//        list.deleteFirst();
-//        list.deleteLast();
+        list.printList();
+
+        list.reverseIterate();
         list.printList();
 
         list.head = list.reverseRecursive(list.head);

@@ -1,6 +1,8 @@
 import java.util.*;
 // Q1 : find the nth node from the LinkedList and delete it from the List.
 // Q2 : find that if the LinkedList is palindrome or not.
+// Q3 : Detect a cycle in a LinkedList + Trick to remove the cycle.
+
 public class DS_linkedList3ImpQues {
     Node head;
     class Node{
@@ -76,7 +78,7 @@ public class DS_linkedList3ImpQues {
         return head;
     }
 
-    //Q2:
+    // Q2:
     public boolean isPalindrome(Node head){
         if(head == null || head.next == null){
             return true;
@@ -124,6 +126,28 @@ public class DS_linkedList3ImpQues {
         return turtle;
     }
 
+    // Q3:
+    public boolean hasCycle(Node head){
+        if (head == null) {
+            return false;
+        }
+
+        Node hare = head;      // fast
+        Node turtle = head;    // slow
+
+        while(hare.next != null && hare.next.next != null){
+            hare = hare.next.next;
+            turtle = turtle.next;
+
+            if(hare == turtle){
+                System.out.println("LinkedList contains the loop cycle");
+                return true;
+            }
+        }
+        System.out.println("LinkedList does not contain the loop cycle");
+        return false;
+    }
+
     public static void main(String[] args) {
         DS_linkedList3ImpQues list = new DS_linkedList3ImpQues();
 
@@ -137,7 +161,9 @@ public class DS_linkedList3ImpQues {
 //        list.nthNode(list.head, 2);
 //        list.printList();
 
-        list.isPalindrome(list.head);
-        list.printList();
+//        list.isPalindrome(list.head);
+//        list.printList();
+
+        list.hasCycle(list.head);
     }
 }
