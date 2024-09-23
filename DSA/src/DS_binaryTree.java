@@ -88,8 +88,88 @@ public class DS_binaryTree {
                     q.add(currNode.right);
                 }
             }
-
         }
+    }
+
+    // function to calculate the number of nodes in a binary tree
+    public static int countOfNodes(Node root){
+        if(root == null){
+            return 0;
+        }
+
+        int leftNodes = countOfNodes(root.left);
+        int rightNodes = countOfNodes(root.right);
+
+        return leftNodes + rightNodes + 1;
+    }
+
+    // function to calculate the sum of nodes in a binary tree
+    public static int sumOfNodes(Node root){
+        if(root == null){
+            return 0;
+        }
+
+        int leftSum = sumOfNodes(root.left);
+        int rightSum = sumOfNodes(root.right);
+
+        return leftSum + rightSum + root.data;
+    }
+
+    // Height of tree
+    public static int height(Node root){
+        if(root == null){
+            return 0;
+        }
+
+        int leftHeight = height(root.left);
+        int rightHeight = height(root.right);
+
+        int treeHeight =  Math.max(leftHeight, rightHeight) + 1;
+        return treeHeight;
+    }
+
+    // approach 1 : Diameter of binary tree
+    public static int diameter(Node root){   // time complexity = O(n2)
+        if(root == null){
+            return 0;
+        }
+
+        int diam1 = diameter(root.left);
+        int diam2 = diameter(root.right);
+        int diam3 = height(root.left) + height(root.right) + 1;
+
+        return Math.max(diam3, Math.max(diam1, diam2));
+    }
+
+    // approach 2 : Diameter of binary tree
+    static class TreeInfo{
+        int height;
+        int diameter;
+
+        TreeInfo(int height, int diameter){
+            this.height = height;
+            this.diameter = diameter;
+        }
+    }
+
+    public static TreeInfo diameter2(Node root){
+        if(root == null){
+            return new TreeInfo(0, 0);
+        }
+
+        TreeInfo left = diameter2(root.left);
+        TreeInfo right = diameter2(root.right);
+
+        int treeHeight = Math.max(left.height, right.height) + 1;
+
+        int diam1 = left.diameter;
+        int diam2 = right.diameter;
+        int diam3 = left.height + right.height + 1;
+
+        int mydiam = Math.max(Math.max(diam1, diam2), diam3);
+
+        TreeInfo myInfo = new TreeInfo(treeHeight, mydiam);
+        return myInfo;
     }
 
     public static void main(String[] args){
@@ -97,18 +177,28 @@ public class DS_binaryTree {
         BinaryTree tree = new BinaryTree();
         Node root = tree.buildTree(nodes);
 
-        System.out.print(root.data + " ");
-        System.out.println();
+//        System.out.print(root.data + " ");
+//        System.out.println();
+//
+//        preOrder(root);
+//        System.out.println();
+//
+//        inOrder(root);
+//        System.out.println();
+//
+//        postOrder(root);
+//        System.out.println();
+//
+//        levelOrder(root);
 
-        preOrder(root);
-        System.out.println();
+        System.out.println(countOfNodes(root));
 
-        inOrder(root);
-        System.out.println();
+        System.out.println(sumOfNodes(root));
 
-        postOrder(root);
-        System.out.println();
+        System.out.println(height(root));
 
-        levelOrder(root);
+        System.out.println(diameter(root));
+
+        System.out.println(diameter2(root).diameter);
     }
 }
