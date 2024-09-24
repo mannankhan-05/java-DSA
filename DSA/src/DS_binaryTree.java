@@ -15,6 +15,8 @@ public class DS_binaryTree {
 
     static class BinaryTree{
         static int index = -1;
+
+        // The below function constructs a binary tree from a given array of integers
         public static Node buildTree(int nodes[]){
             index++;
             if(nodes[index] == -1){
@@ -177,7 +179,7 @@ public class DS_binaryTree {
         BinaryTree tree = new BinaryTree();
         Node root = tree.buildTree(nodes);
 
-//        System.out.print(root.data + " ");
+        System.out.print(root.data + " ");
 //        System.out.println();
 //
 //        preOrder(root);
@@ -191,14 +193,14 @@ public class DS_binaryTree {
 //
 //        levelOrder(root);
 
-        System.out.println(countOfNodes(root));
-
-        System.out.println(sumOfNodes(root));
-
-        System.out.println(height(root));
-
-        System.out.println(diameter(root));
-
-        System.out.println(diameter2(root).diameter);
+//        System.out.println(countOfNodes(root));
+//
+//        System.out.println(sumOfNodes(root));
+//
+//        System.out.println(height(root));
+//
+//        System.out.println(diameter(root));
+//
+//        System.out.println(diameter2(root).diameter);
     }
 }
