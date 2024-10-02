@@ -111,38 +111,77 @@
 
 // Q4 : find Itinerary from tickets (start se end tak ka path print karwana hai)
 
+//import java.util.*;
+//public class DS_hashMapQuestions {
+//    public static String getStart(HashMap<String, String> tick){
+//        HashMap<String, String> reverseMap = new HashMap<>();
+//
+//        for(String key : tick.keySet()){
+//            reverseMap.put(tick.get(key), key);
+//        }
+//
+//        for(String key : tick.keySet()){
+//            if(!reverseMap.containsKey(key)){
+//                return key;
+//            }
+//        }
+//
+//        return null;
+//    }
+//
+//    public static void main(String[] args) {
+//          HashMap<String, String> tickets = new HashMap<>();
+//
+//          tickets.put("Chennai", "Bengaluru");
+//          tickets.put("Mumbai", "Delhi");
+//          tickets.put("Goa", "Chennai");
+//          tickets.put("Delhi", "Goa");
+//
+//          String start = getStart(tickets);
+//
+//          while(tickets.containsKey(start)){
+//              System.out.print(start + " -> ");
+//              start = tickets.get(start);
+//          }
+//        System.out.print(start);
+//    }
+//}
+
+
+
+
+
+
+
+
+
+// Q5 : subarray sum equal to K
+
 import java.util.*;
 public class DS_hashMapQuestions {
-    public static String getStart(HashMap<String, String> tick){
-        HashMap<String, String> reverseMap = new HashMap<>();
+    public static void main(String[] args){
+        int arr[] = {10, 2, -2, -20, 10};   // and = 3
+        int k = -10;
+        HashMap<Integer, Integer> map = new HashMap<>();  // <sum, freq>
+        map.put(0, 1);  // empty subarray
+        int ans = 0;
+        int sum = 0;
 
-        for(String key : tick.keySet()){
-            reverseMap.put(tick.get(key), key);
-        }
+        for(int i = 0; i < arr.length; i++){
+            sum += arr[i];
 
-        for(String key : tick.keySet()){
-            if(!reverseMap.containsKey(key)){
-                return key;
+            if(map.containsKey(sum - k)){
+                ans += map.get(sum - k);
+            }
+
+            if(map.containsKey(sum)){
+                map.put(sum, map.get(sum) + 1);
+            }
+            else{
+                map.put(sum, 1);
             }
         }
 
-        return null;
-    }
-
-    public static void main(String[] args) {
-          HashMap<String, String> tickets = new HashMap<>();
-
-          tickets.put("Chennai", "Bengaluru");
-          tickets.put("Mumbai", "Delhi");
-          tickets.put("Goa", "Chennai");
-          tickets.put("Delhi", "Goa");
-
-          String start = getStart(tickets);
-
-          while(tickets.containsKey(start)){
-              System.out.print(start + " -> ");
-              start = tickets.get(start);
-          }
-        System.out.print(start);
+        System.out.println(ans);
     }
 }
