@@ -22,23 +22,25 @@ public class DS_graph_cycleDetection {
         graph[3].add(new Edge(3, 0));
     }
 
-    public static void bfs(ArrayList<Edge> graph[], boolean visArr[], int start){
-        Queue<Integer> q = new LinkedList<>();
-        q.add(start);
+   public static boolean isCycleDirected(ArrayList<Edge> graph[], boolean visArr[], int curr, boolean rec[]) {
+       visArr[curr] = true;
+       rec[curr] = true;
 
-        while(!q.isEmpty()){
-            int curr = q.remove();
-            if(visArr[curr] == false){
-                System.out.print(curr + " ");
-                visArr[curr] = true;
+       // loop for the neighbours of the curr
+       for (int i = 0; i < graph[curr].size(); i++) {
+           Edge e = graph[curr].get(i);
+           if (rec[e.dest] == true) {
+               return true; // cycle exists
+           } else if (!visArr[e.dest]) {
+               if(isCycleDirected(graph, visArr, e.dest, rec)){
+                   return true; // cycle exists
+               }
+           }
+       }
 
-                for(int i = 0; i < graph[curr].size(); i++){
-                    Edge e = graph[curr].get(i);
-                    q.add(e.dest);
-                }
-            }
-        }
-    }
+       rec[curr] = false;
+       return false; // cycle doesn't exist
+   }
 
     public static void main(String[] args){
         int V = 4;
@@ -46,6 +48,7 @@ public class DS_graph_cycleDetection {
         ArrayList<Edge> graph[] = new ArrayList[V];
         boolean[] visArr = new boolean[V];
         createGraph(graph);
-        bfs(graph, visArr, 1);
+
+        System.out.println(isCycleDirected(graph, new boolean[V], 0, new boolean[V]));
     }
 }
