@@ -95,16 +95,16 @@ public class DS_graph_BFS_DFS {
 
         int src = 0; int tar = 5;
 
-//        boolean visArr[] = new boolean[V];
-//        for(int i = 0; i < V; i++){
-//            if(visArr[i] == false){
-//                bfs(graph, V, visArr, i);
-//            }
-//        }
+        boolean visArr[] = new boolean[V];
+        for(int i = 0; i < V; i++){
+            if(visArr[i] == false){
+                bfs(graph, V, visArr, i);
+            }
+        }
 
 //        dfs(graph, 0, visArr);
 
-        printAllPath(graph, new boolean[V], src, "0", tar);
+//        printAllPath(graph, new boolean[V], src, "0", tar);
 
     }
 }

@@ -7,7 +7,7 @@ public class DS_graph_cycleDetection {
 
         Edge(int s, int d){
             this.src = s;
-            this.dest =d;
+            this.dest = d;
         }
     }
 
