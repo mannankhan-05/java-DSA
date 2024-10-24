@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class DS_graph_Bridge_tarjansAlgorithm {
+public class DS_graph_AP_tarjansAlgorithm_Practise {
     static class Edge{
         int src;
         int dest;
@@ -28,62 +28,65 @@ public class DS_graph_Bridge_tarjansAlgorithm {
 
         graph[3].add(new Edge(3, 0));
         graph[3].add(new Edge(3, 4));
-        graph[3].add(new Edge(3, 5));
 
         graph[4].add(new Edge(4, 3));
-        graph[4].add(new Edge(4, 5));
-
-        graph[5].add(new Edge(5, 3));
-        graph[5].add(new Edge(5, 4));
     }
 
-    public static void dfs(ArrayList<Edge> graph[], int curr, boolean visited[], int dt[], int low[], int time, int parent){
+    public static void dfs(ArrayList<Edge> graph[], int curr, int parent, int[] dt, int[] low, boolean[] visited, boolean[] ap, int time){
         visited[curr] = true;
-        dt[curr] = low[curr] = ++time;
+        dt[curr] = low[curr] = time;
+        int children = 0;
 
-        // loop for all neighbours
         for(int i = 0; i < graph[curr].size(); i++){
             Edge e = graph[curr].get(i);
 
-            if(e.dest == parent){
+            if(parent == e.dest){
                 continue;
             }
-            else if(!visited[e.dest]){
-                dfs(graph, e.dest, visited, dt, low, time, curr);
-                low[curr] = Math.min(low[curr], low[e.dest]);
-                // condition for bridge
-                if(dt[curr] < low[e.dest]){
-                    System.out.println("Bridge is : " + curr + " --- " + e.dest);
-                }
-            }
-            else{
+            else if(visited[e.dest]){
                 low[curr] = Math.min(low[curr], dt[e.dest]);
             }
+            else{
+                dfs(graph, e.dest, curr, dt, low, visited, ap, time);
+                low[curr] = Math.min(low[curr], low[e.dest]);
+
+                if(dt[curr] <= low[e.dest] && parent != -1){
+                    ap[curr] = true;
+                }
+                children++;
+            }
+        }
+
+        if(parent == -1 && children > 1) {
+            ap[curr] = true;
         }
     }
 
-    public static void getBridge(ArrayList<Edge> graph[], int V){
-        // first create 2 arrays:   (1) discovery time  (2) lowest discovery time
+    public static void articulationPoint(ArrayList<Edge> graph[], int V){
         int dt[] = new int[V];
         int low[] = new int[V];
         boolean visited[] = new boolean[V];
+        boolean ap[] = new boolean[V];
         int time = 0;
 
-        // dfs at all vertices
         for(int i = 0; i < V; i++){
             if(!visited[i]){
-                // initialy, the parent of starting point is -1
-                dfs(graph, i, visited, dt, low, time, -1);
+                dfs(graph, i, -1, dt, low, visited, ap, time);
+            }
+        }
+
+        for(int i = 0; i < V; i++){
+            if(ap[i]){
+                System.out.println("Articulation Point --> " + i);
             }
         }
     }
 
     public static void main(String[] args){
         int V = 6;
-
         ArrayList<Edge> graph[] = new ArrayList[V];
         createGraph(graph);
 
-        getBridge(graph, V);
+        articulationPoint(graph, V);
     }
 }

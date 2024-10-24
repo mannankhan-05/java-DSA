@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class DS_graph_Bridge_tarjansAlgorithm {
+public class DS_graph_Bridge_tarjansAlgorithm_Practise {
     static class Edge{
         int src;
         int dest;
@@ -13,7 +13,7 @@ public class DS_graph_Bridge_tarjansAlgorithm {
 
     public static void createGraph(ArrayList<Edge> graph[]){
         for(int i = 0; i < graph.length; i++){
-            graph[i] = new ArrayList<>();
+            graph[i] = new ArrayList<Edge>();
         }
 
         graph[0].add(new Edge(0, 1));
@@ -37,21 +37,21 @@ public class DS_graph_Bridge_tarjansAlgorithm {
         graph[5].add(new Edge(5, 4));
     }
 
-    public static void dfs(ArrayList<Edge> graph[], int curr, boolean visited[], int dt[], int low[], int time, int parent){
+    public static void  dfs(ArrayList<Edge> graph[], int curr, int[] dt, int[] low, boolean[] visited, int time, int parent){
         visited[curr] = true;
-        dt[curr] = low[curr] = ++time;
+        dt[curr] = low[curr] = time;
 
-        // loop for all neighbours
         for(int i = 0; i < graph[curr].size(); i++){
             Edge e = graph[curr].get(i);
 
-            if(e.dest == parent){
+            if(parent == e.dest){
                 continue;
             }
             else if(!visited[e.dest]){
-                dfs(graph, e.dest, visited, dt, low, time, curr);
+                dfs(graph, e.dest, dt, low, visited, time, curr);
                 low[curr] = Math.min(low[curr], low[e.dest]);
-                // condition for bridge
+
+                // bridge condition
                 if(dt[curr] < low[e.dest]){
                     System.out.println("Bridge is : " + curr + " --- " + e.dest);
                 }
@@ -62,8 +62,7 @@ public class DS_graph_Bridge_tarjansAlgorithm {
         }
     }
 
-    public static void getBridge(ArrayList<Edge> graph[], int V){
-        // first create 2 arrays:   (1) discovery time  (2) lowest discovery time
+    public static void tarjansAlgorithm(ArrayList<Edge> graph[], int V){
         int dt[] = new int[V];
         int low[] = new int[V];
         boolean visited[] = new boolean[V];
@@ -72,18 +71,16 @@ public class DS_graph_Bridge_tarjansAlgorithm {
         // dfs at all vertices
         for(int i = 0; i < V; i++){
             if(!visited[i]){
-                // initialy, the parent of starting point is -1
-                dfs(graph, i, visited, dt, low, time, -1);
+                dfs(graph, i, dt, low, visited, time, -1);
             }
         }
     }
 
     public static void main(String[] args){
         int V = 6;
-
         ArrayList<Edge> graph[] = new ArrayList[V];
         createGraph(graph);
 
-        getBridge(graph, V);
+        tarjansAlgorithm(graph, V);
     }
 }
